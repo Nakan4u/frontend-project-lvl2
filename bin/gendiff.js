@@ -1,11 +1,14 @@
 #!/usr/bin/env node
-import gendiff from '../index.js'
+import genDiff from '../index.js'
+import program from 'commander';
 
-const program = gendiff();
-const flags = process.argv.slice(2);
-
-if (flags[0] === '-h') {
-  console.log(program.help());
-} else {
-  console.log(program.description());
-}
+program
+  .version('1.0.0')
+  .description('Compares two configuration files and shows a difference.')
+  .arguments('<filepath1> <filepath2>')
+  .option('-f, --format [type]', 'output format', 'stylish')
+  .action((filepath1, filepath2) => {
+    const difference = genDiff(filepath1, filepath2);
+    console.log(difference);
+  })
+  .parse(process.argv);
