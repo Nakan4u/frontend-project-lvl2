@@ -13,6 +13,7 @@ export const getJSONDiff = (file1, file2) => {
   const clonedObj1 = _.clone(obj1);
   const clonedObj2 = _.clone(obj2);
   const mergedObj = _.merge(clonedObj1, clonedObj2);
+  // eslint-disable-next-line no-prototype-builtins
   const isKeyInObj = (obj, key) => obj.hasOwnProperty(key);
 
   const result = Object.keys(mergedObj).sort().reduce((acc, key) => {
@@ -21,24 +22,19 @@ export const getJSONDiff = (file1, file2) => {
     const isKeyInObj2 = isKeyInObj(obj2, key);
     const positiveKey = `+ ${key}`;
     const negativeKey = `- ${key}`;
-    // object1 has key that obj2 doesn't;
-    if (isKeyInObj1 && !isKeyInObj2) {
+
+    if (isKeyInObj1 && !isKeyInObj2) { // object1 has key that obj2 doesn't;
       acc[negativeKey] = obj1[key];
-    }
-    // object2 has key that obj1 doesn't;
-    else if (!isKeyInObj1 && isKeyInObj2) {
+    } else if (!isKeyInObj1 && isKeyInObj2) { // object2 has key that obj1 doesn't;
       acc[positiveKey] = obj2[key];
-    }
-    // object2 has key that obj1 doesn't;
-    else if (isKeyInObj1 && isKeyInObj2 && obj1[key] !== obj2[key]) {
+    } else if (isKeyInObj1 && isKeyInObj2 && obj1[key] !== obj2[key]) {
+      // object2 has key that obj1 doesn't;
       acc[negativeKey] = obj1[key];
       acc[positiveKey] = obj2[key];
-    }
-    // both object has same key with same value
-    else {
+    } else { // both object has same key with same value
       acc[key] = value;
     }
     return acc;
-  }, {})
+  }, {});
   return JSON.stringify(result);
-}
+};
