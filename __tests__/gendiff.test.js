@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import gendiff from '../src/index.js';
+import { getJSONDiff } from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,6 +13,6 @@ test('findDifferences JSON should return correct result', () => {
   const file1 = readFile('person1.json');
   const file2 = readFile('person2.json');
   const expected = readFile('result-json.txt');
-  const differenceJSON = gendiff(file1, file2);
+  const differenceJSON = getJSONDiff(file1, file2);
   expect(differenceJSON).toEqual(expected);
 });

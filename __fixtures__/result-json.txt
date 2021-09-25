@@ -1,1 +1,1 @@
-"Hello world!";
+{"age":27,"- company":"VIRXO","+ company":"ZOLAREX","- email":"avilabaldwin@virxo.com","+ email":"flynncunningham@zolarex.com","- eyeColor":"green","+ eyeColor":"blue","gender":"male","- index":0,"+ index":1,"isActive":true,"- name":"Avila Baldwin","+ name":"Flynn Cunningham"}
