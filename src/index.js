@@ -41,7 +41,7 @@ export const genDiff = (obj1, obj2) => {
   return JSON.stringify(result);
 };
 
-export default (filepath1, filepath2) => {
+export const getDiff = (filepath1, filepath2) => {
   const file1 = readFile(filepath1);
   const file2 = readFile(filepath2);
   const parsedFile1 = parseFile(filepath1, file1);
