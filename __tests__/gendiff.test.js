@@ -1,19 +1,18 @@
 #!/usr/bin/env node
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-import path from 'path';
-import { getJSONDiff } from '../src/index.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const getFixturePath = (filePath) => path.join(__dirname, '..', '__fixtures__', filePath);
-const readFile = (filePath) => fs.readFileSync(getFixturePath(filePath), 'utf8');
+import getDiff, { readFile } from '../src/index.js';
 
 test('findDifferences JSON should return correct result', () => {
-  const file1 = readFile('person1.json');
-  const file2 = readFile('person2.json');
-  const expected = readFile('result-json.txt');
-  const differenceJSON = getJSONDiff(file1, file2);
-  expect(differenceJSON).toEqual(expected);
+  const file1 = readFile('file1.json');
+  const file2 = readFile('file2.json');
+  const expected = readFile('files-diff.txt');
+  const diff = getDiff(file1, file2);
+  expect(diff).toEqual(expected);
+});
+
+test('findDifferences YAML should return correct result', () => {
+  const file1 = readFile('person1.yaml');
+  const file2 = readFile('person2.yaml');
+  const expected = readFile('persons-diff.txt');
+  const diff = getDiff(file1, file2);
+  expect(diff).toEqual(expected);
 });

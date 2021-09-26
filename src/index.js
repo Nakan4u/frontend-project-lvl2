@@ -1,15 +1,17 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import { fileURLToPath } from 'url';
 
-export const readFile = (filePath) => {
-  const contentFile = fs.readFileSync(path.resolve(process.cwd(), '__fixtures__', filePath), 'utf8');
-  return contentFile;
-};
+import parseFile from './parsers.js';
 
-export const getJSONDiff = (file1, file2) => {
-  const obj1 = JSON.parse(file1);
-  const obj2 = JSON.parse(file2);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const getFixturePath = (filePath) => path.join(__dirname, '..', '__fixtures__', filePath);
+
+export const readFile = (filePath) => fs.readFileSync(getFixturePath(filePath), 'utf8');
+
+export const genDiff = (obj1, obj2) => {
   const clonedObj1 = _.clone(obj1);
   const clonedObj2 = _.clone(obj2);
   const mergedObj = _.merge(clonedObj1, clonedObj2);
@@ -37,4 +39,12 @@ export const getJSONDiff = (file1, file2) => {
     return acc;
   }, {});
   return JSON.stringify(result);
+};
+
+export default (filepath1, filepath2) => {
+  const file1 = readFile(filepath1);
+  const file2 = readFile(filepath2);
+  const parsedFile1 = parseFile(filepath1, file1);
+  const parsedFile2 = parseFile(filepath1, file2);
+  return genDiff(parsedFile1, parsedFile2);
 };
