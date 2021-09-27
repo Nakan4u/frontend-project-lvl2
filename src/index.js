@@ -11,19 +11,24 @@ const getFixturePath = (filePath) => path.join(__dirname, '..', '__fixtures__', 
 
 export const readFile = (filePath) => fs.readFileSync(getFixturePath(filePath), 'utf8');
 
-export const genDiff = (obj1, obj2, stringify = true) => {
-  const clonedObj1 = _.clone(obj1);
-  const clonedObj2 = _.clone(obj2);
-  const mergedObj = _.merge(clonedObj1, clonedObj2);
-  // eslint-disable-next-line no-prototype-builtins
-  const isKeyInObj = (obj, key) => obj.hasOwnProperty(key);
+// eslint-disable-next-line no-prototype-builtins
+const isKeyInObj = (obj, key) => obj.hasOwnProperty(key);
 
-  const result = Object.keys(mergedObj).sort().reduce((acc, key) => {
+const getDiffFromObj = (mergedObj, obj1, obj2) => {
+  const keys = Object.keys(mergedObj).sort();
+  const result = keys.reduce((acc, key) => {
     const value = mergedObj[key];
     const isKeyInObj1 = isKeyInObj(obj1, key);
     const isKeyInObj2 = isKeyInObj(obj2, key);
     const positiveKey = `+ ${key}`;
     const negativeKey = `- ${key}`;
+
+    // run recursion if value is 'object' and exist in both objects;
+    if (value && typeof value === 'object' && isKeyInObj1 && isKeyInObj2) {
+      // console.log('recursion with: ', key, value, obj1[key], obj2[key]);
+      acc[key] = getDiffFromObj(value, obj1[key], obj2[key]);
+      return acc;
+    }
 
     if (isKeyInObj1 && !isKeyInObj2) { // object1 has key that obj2 doesn't;
       acc[negativeKey] = obj1[key];
@@ -38,6 +43,15 @@ export const genDiff = (obj1, obj2, stringify = true) => {
     }
     return acc;
   }, {});
+  return result;
+};
+
+export const genDiff = (obj1, obj2, stringify = true) => {
+  const clonedObj1 = _.cloneDeep(obj1);
+  const clonedObj2 = _.cloneDeep(obj2);
+  const mergedObj = _.merge(clonedObj1, clonedObj2);
+
+  const result = getDiffFromObj(mergedObj, obj1, obj2);
   return stringify ? JSON.stringify(result) : result;
 };
 
