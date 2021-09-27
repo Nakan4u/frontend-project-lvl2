@@ -11,7 +11,7 @@ const getFixturePath = (filePath) => path.join(__dirname, '..', '__fixtures__', 
 
 export const readFile = (filePath) => fs.readFileSync(getFixturePath(filePath), 'utf8');
 
-export const genDiff = (obj1, obj2) => {
+export const genDiff = (obj1, obj2, stringify = true) => {
   const clonedObj1 = _.clone(obj1);
   const clonedObj2 = _.clone(obj2);
   const mergedObj = _.merge(clonedObj1, clonedObj2);
@@ -38,13 +38,13 @@ export const genDiff = (obj1, obj2) => {
     }
     return acc;
   }, {});
-  return JSON.stringify(result);
+  return stringify ? JSON.stringify(result) : result;
 };
 
-export const getDiff = (filepath1, filepath2) => {
+export const getDiff = (filepath1, filepath2, stringify = true) => {
   const file1 = readFile(filepath1);
   const file2 = readFile(filepath2);
   const parsedFile1 = parseFile(filepath1, file1);
   const parsedFile2 = parseFile(filepath1, file2);
-  return genDiff(parsedFile1, parsedFile2);
+  return genDiff(parsedFile1, parsedFile2, stringify);
 };
