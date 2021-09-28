@@ -29,6 +29,6 @@ test('findDifferences YAML should return correct diff with deep files', () => {
   const file1Path = 'file3.yaml';
   const file2Path = 'file4.yaml';
   const expected = readFile('files-deep-diff.txt');
-  const diff = getDiff(file1Path, file2Path);
+  const diff = getDiff(file1Path, file2Path, 'stylish');
   expect(diff).toEqual(expected);
 });

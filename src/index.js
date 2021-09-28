@@ -12,7 +12,7 @@ const getFixturePath = (filePath) => path.join(__dirname, '..', '__fixtures__', 
 
 export const readFile = (filePath) => fs.readFileSync(getFixturePath(filePath), 'utf8');
 
-export default (filepath1, filepath2, stringify = true) => {
+export default (filepath1, filepath2, format, stringify = true) => {
   const file1 = readFile(filepath1);
   const file2 = readFile(filepath2);
   const parsedFile1 = parseFile(filepath1, file1);
@@ -20,7 +20,6 @@ export default (filepath1, filepath2, stringify = true) => {
   const clonedObj1 = _.cloneDeep(parsedFile1);
   const clonedObj2 = _.cloneDeep(parsedFile2);
   const mergedObj = _.merge(clonedObj1, clonedObj2);
-
-  const result = getDiff(mergedObj, parsedFile1, parsedFile2);
+  const result = getDiff(mergedObj, parsedFile1, parsedFile2, format);
   return stringify ? JSON.stringify(result) : result;
 };

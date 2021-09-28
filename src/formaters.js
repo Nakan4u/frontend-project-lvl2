@@ -1,5 +1,12 @@
-export default (type = 'stylish') => {
+export default (type, key) => {
   if (type === 'stylish') {
-    console.log('stylish');
+    return {
+      prev: `- ${key}`,
+      new: `+ ${key}`,
+    };
   }
+  return {
+    prev: `prev ${key}`,
+    new: `new ${key}`,
+  };
 };
