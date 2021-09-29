@@ -1,8 +1,7 @@
-import formatter from './formaters/index.js';
 // eslint-disable-next-line no-prototype-builtins
 export const isKeyInObj = (obj, key) => obj?.hasOwnProperty(key);
 
-const getDiff = (mergedObj, obj1, obj2, type = 'stylish') => {
+const getDiff = (mergedObj, obj1, obj2, type) => {
   const keys = Object.keys(mergedObj).sort();
   const diffObj = keys.reduce((acc, key) => {
     const value = mergedObj[key];
@@ -12,7 +11,7 @@ const getDiff = (mergedObj, obj1, obj2, type = 'stylish') => {
     // run recursion if value is 'object' and exist in both objects;
     if (value && typeof value === 'object' && isKeyInObj1 && isKeyInObj2) {
       // console.log('recursion with: ', key, value, obj1[key], obj2[key]);
-      acc[key] = getDiff(value, obj1[key], obj2[key]);
+      acc[key] = getDiff(value, obj1[key], obj2[key], type);
       return acc;
     }
 
@@ -31,8 +30,7 @@ const getDiff = (mergedObj, obj1, obj2, type = 'stylish') => {
     }
     return acc;
   }, {});
-  const formattedResult = formatter(diffObj, type);
-  return formattedResult;
+  return diffObj;
 };
 
 export default getDiff;

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import stylish from './stylish.js';
 import plain from './plain.js';
 
