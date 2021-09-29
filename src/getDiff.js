@@ -1,6 +1,6 @@
 import formatter from './formaters/index.js';
 // eslint-disable-next-line no-prototype-builtins
-export const isKeyInObj = (obj, key) => obj.hasOwnProperty(key);
+export const isKeyInObj = (obj, key) => obj?.hasOwnProperty(key);
 
 const getDiff = (mergedObj, obj1, obj2, type = 'stylish') => {
   const keys = Object.keys(mergedObj).sort();

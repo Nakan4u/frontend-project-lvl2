@@ -1,6 +1,6 @@
 import { isKeyInObj } from '../getDiff.js';
 
-export default (diffObj) => {
+const format = (diffObj) => {
   const keys = Object.keys(diffObj).sort();
   const result = keys.reduce((acc, key) => {
     const value = diffObj[key];
@@ -9,16 +9,18 @@ export default (diffObj) => {
     const newKey = `+ ${key}`;
     const oldKey = `- ${key}`;
 
-    if (newValue) {
-      acc[newKey] = value.new;
+    if (!newValue && !oldValue && value) {
+      acc[key] = value;
     }
     if (oldValue) {
       acc[oldKey] = value.old;
     }
-    if (!newValue && !oldValue) {
-      acc[key] = value;
+    if (newValue) {
+      acc[newKey] = value.new;
     }
     return acc;
   }, {});
   return result;
 };
+
+export default format;
