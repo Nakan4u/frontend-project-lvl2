@@ -4,18 +4,23 @@ const format = (diffObj) => {
   const keys = Object.keys(diffObj).sort();
   const result = keys.reduce((acc, key) => {
     const value = diffObj[key];
-    const newValue = isKeyInObj(value, 'new');
-    const oldValue = isKeyInObj(value, 'old');
+    const isNewValue = isKeyInObj(value, 'new');
+    const isOldValue = isKeyInObj(value, 'old');
     const newKey = `+ ${key}`;
     const oldKey = `- ${key}`;
 
-    if (!newValue && !oldValue && value) {
+    if (value && typeof value === 'object' && !isNewValue && !isOldValue) {
+      const data = format(value);
+      acc[key] = data;
+      return acc;
+    }
+    if (!isNewValue && !isOldValue && value) {
       acc[key] = value;
     }
-    if (oldValue) {
+    if (isOldValue) {
       acc[oldKey] = value.old;
     }
-    if (newValue) {
+    if (isNewValue) {
       acc[newKey] = value.new;
     }
     return acc;

@@ -14,7 +14,6 @@ const getDiff = (mergedObj, obj1, obj2, type) => {
       acc[key] = getDiff(value, obj1[key], obj2[key], type);
       return acc;
     }
-
     if (isKeyInObj1 && !isKeyInObj2) { // object1 has key that obj2 doesn't;
       acc[key] = { old: obj1[key] };
     } else if (!isKeyInObj1 && isKeyInObj2) { // object2 has key that obj1 doesn't;
