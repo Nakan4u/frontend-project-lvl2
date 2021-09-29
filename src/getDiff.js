@@ -1,4 +1,4 @@
-import formatKey from './formaters.js';
+import formatKey from './formaters/index.js';
 // eslint-disable-next-line no-prototype-builtins
 const isKeyInObj = (obj, key) => obj.hasOwnProperty(key);
 
