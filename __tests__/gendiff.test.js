@@ -32,3 +32,11 @@ test('findDifferences YAML should return correct diff with deep files', () => {
   const diff = getDiff(file1Path, file2Path, 'stylish');
   expect(diff).toEqual(expected);
 });
+
+test('findDifferences should return correct diff with plain format', () => {
+  const file1Path = 'file3.json';
+  const file2Path = 'file4.json';
+  const expected = readFile('plain-diff.txt');
+  const diff = getDiff(file1Path, file2Path, 'plain');
+  expect(diff).toEqual(expected);
+});
