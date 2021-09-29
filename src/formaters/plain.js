@@ -1,4 +1,5 @@
-export default (key) => ({
-  prev: `removed ${key}`,
-  new: `added ${key}`,
-});
+export default (diffObj) => {
+  const result = 'plain';
+  console.log(diffObj);
+  return result;
+};

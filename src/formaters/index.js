@@ -1,9 +1,9 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
 
-export default (type, key) => {
+export default (diffObj, type) => {
   if (type === 'stylish') {
-    return stylish(key);
+    return stylish(diffObj);
   }
-  return plain(key);
+  return plain(diffObj);
 };
