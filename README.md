@@ -8,3 +8,5 @@
 [![asciicast](https://asciinema.org/a/4laYV8cVe1VgmMIWD6QPuVuux.svg)](https://asciinema.org/a/4laYV8cVe1VgmMIWD6QPuVuux)
 ### Demo diff with plain format:
 [![asciicast](https://asciinema.org/a/4WkA4oA7FXS1FkW7tbo6vWha9.svg)](https://asciinema.org/a/4WkA4oA7FXS1FkW7tbo6vWha9)
+### Demo diff with json format:
+[![asciicast](https://asciinema.org/a/uXSupnatDgMjtNHpCumdY5qSd.svg)](https://asciinema.org/a/uXSupnatDgMjtNHpCumdY5qSd)

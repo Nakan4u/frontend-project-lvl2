@@ -40,3 +40,11 @@ test('findDifferences should return correct diff with plain format', () => {
   const diff = getDiff(file1Path, file2Path, 'plain');
   expect(diff).toEqual(expected);
 });
+
+test('findDifferences should return correct diff with json format', () => {
+  const file1Path = 'file3.json';
+  const file2Path = 'file4.json';
+  const expected = readFile('json-diff.txt');
+  const diff = getDiff(file1Path, file2Path, 'json');
+  expect(diff).toEqual(expected);
+});

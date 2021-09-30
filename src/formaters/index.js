@@ -6,5 +6,8 @@ export default (diffObj, type) => {
   if (type === 'stylish') {
     return stylish(diffObj);
   }
-  return plain(diffObj);
+  if (type === 'plain') {
+    return plain(diffObj);
+  }
+  return diffObj;
 };
