@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import getDiff, { readFile } from '../src/index.js';
 
 test('findDifferences JSON should return correct result', () => {
